@@ -1,6 +1,6 @@
 # TRIE DATA STRUCTURE
 
-This projects implements the Trie Data Structure. 
+This projects implements the Trie Data Structure.
 
 
 
