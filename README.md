@@ -2,7 +2,7 @@
 
 In this project we are going to Implement TRIE DATA STRUCTURE using classes in C++.
 <br>
-**<h1>Features:</h1>
+**<h1>Table Of Contents:</h1>
     **Insertion
     <br>
     **Deletion
