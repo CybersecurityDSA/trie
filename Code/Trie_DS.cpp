@@ -29,11 +29,11 @@ class Trie {
         
         if(word.length() == 0){
             root -> isTerminal = true;
-            
         }
         
         int index = word[0] -'A';
         TrieNode* child;
+        
 
         if( root -> children[index] != NULL) {
             child  = root->children[index];
