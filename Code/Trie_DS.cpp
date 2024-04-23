@@ -26,10 +26,15 @@ class Trie {
     public:
         TrieNode* root;
     void insertUtil(TrieNode* root, string word){
+        
         if(word.length() == 0){
-            root -> isTerminal;
-            return false;
+            root -> isTerminal = true;
+            
         }
+        
+        int index = word[0] -'A';
+        TrieNode* child;
+
     }
     void insertWord(string word){
 
