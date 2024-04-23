@@ -9,12 +9,12 @@ In this project we are going to Implement TRIE DATA STRUCTURE using classes in C
     <br>
     **Search Function
 
-![trie-datastructure-github-samirpaul1](https://github.com/CybersecurityDSA/trie/assets/143270886/bec5a4fd-7e15-4ef4-b600-dbd9b1e2df33)
-
-
 <h1>Definiton of TRIE DATA STRUCTURE</h1>
 <p>
 A trie, also called a prefix tree or radix tree, is a tree-like data structure that stores strings in a way that allows for efficient retrieval</p>
+<br>
+
+![trie-datastructure-github-samirpaul1](https://github.com/CybersecurityDSA/trie/assets/143270886/bec5a4fd-7e15-4ef4-b600-dbd9b1e2df33)
 <br>
 <h2>Applications of TRIE DATA STRUCTURE:</h2>
 <p>
