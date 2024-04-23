@@ -35,6 +35,14 @@ class Trie {
         int index = word[0] -'A';
         TrieNode* child;
 
+        if( root -> children[index] != NULL) {
+            child  = root->children[index];
+        }
+        else{
+            child = new TrieNode(word[0]);
+            root ->children[index] = child;
+        }
+
     }
     void insertWord(string word){
 
@@ -43,5 +51,5 @@ class Trie {
 };
 int main()
 {
-
+    
 }
