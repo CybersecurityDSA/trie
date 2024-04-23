@@ -45,11 +45,17 @@ class Trie {
 
     }
     void insertWord(string word){
+        insertUtil(root,word);
 
     }
 
 };
 int main()
 {
+    Trie *t = new Trie();
+    t->insertWord("abcd");
+
+    return 0;
+    
     
 }
