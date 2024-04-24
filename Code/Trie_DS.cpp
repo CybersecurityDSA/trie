@@ -6,9 +6,9 @@ using namespace std;
 // Creation of Node
 class TrieNode {
     public:
-        char data; // Character stored in the node
-        TrieNode* children[26]; // Array to hold pointers to children nodes
-        bool isTerminal; // Flag to indicate if a word ends at this node
+        char data; 
+        TrieNode* children[26]; 
+        bool isTerminal; 
 
   // Constructor
         TrieNode(char ch)
@@ -27,7 +27,7 @@ class TrieNode {
 
 };
 
-// Trie class definition
+//Trie Class Defined
 class Trie {
     public:
         TrieNode* root; // Pointer to the root of the trie
@@ -61,25 +61,24 @@ class Trie {
  // Utility function to search for a word in the trie
   bool searchUtil(TrieNode* root, string word){
       if(word.length() == 0){
-          return root->isTerminal; // If word is empty, check if current node is terminal
+          return root->isTerminal; 
       }
-        int index = word[0] - 'A'; // Convert character to index
+        int index = word[0] - 'A'; //Assuming All letters are Caps
         TrieNode* child;
       
-      // Check if child node exists for the character
       if(root->children[index] !=NULL){
-          child = root->children[index]; // If yes, get the child node
+          child = root -> children[index]; 
       }
       else{
-          return false; // If not, word does not exist in the trie
+          return false;
       }
 
       return searchUtil(child, word.substr(1));
   }
 
 
-    bool search(string word){
-        retun searchUtil(root,word);
+    bool searchWord(string word){
+        return searchUtil(root,word);
     }
 
 };
@@ -87,9 +86,22 @@ class Trie {
 int main()
 {
     Trie *t = new Trie(); //Object Created
-    t->insertWord("abcd");
-
-    return 0;
+    string WordToInsert;
+    cout << "Enter Word To Insert" << endl;
+    cin >> WordToInsert;
+    t -> insertWord(WordToInsert);
+    string WordToSearch;
+    cout << "Enter Word To Search" << endl;
+    cin >> WordToSearch;
+    n = t -> searchWord(WordToSearch);
+    if (n == 1){
+        cout << "The Word is Present" <<endl;
+    }
+        
+    else{
+        cout << "The Word is Not Present" <<endl;
+    }
     
+    return 0;
     
 }
