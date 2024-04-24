@@ -1,5 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
 #include<string>
+#include<cctype>
 using namespace std;
 
 //Node Created
@@ -89,6 +90,18 @@ class Trie
         return searchUtil(root, word);
     }
 };
+string LowerToUppercasestring(string WordToInsert)
+{
+    string wordinCaps;
+    for(char c : WordToInsert) {
+        if (islower(c)) {
+            wordinCaps += toupper(c);
+        }else {
+            wordinCaps += c;
+        }
+    }
+    return wordinCaps;
+}
 // Main function
 int main()
 {
@@ -97,16 +110,19 @@ int main()
     string WordToInsert;
     cout << "Enter Word To Insert" << endl;
     cin >> WordToInsert;
+
+    WordToInsert = LowerToUppercasestring(WordToInsert);
+
     t -> insertWord(WordToInsert);
     
     string WordToSearch;
     cout << "Enter Word To Search" << endl;
     cin >> WordToSearch;
+    WordToSearch = LowerToUppercasestring(WordToSearch);
   
-    int n;
-    n = t -> searchWord(WordToSearch);
+    
 
-    if (n == 1)
+    if (t -> searchWord(WordToSearch))
     {
         cout << "The Word is Present" << endl;
     }
