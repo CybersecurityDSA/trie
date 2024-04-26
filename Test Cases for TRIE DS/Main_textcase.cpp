@@ -1,4 +1,4 @@
-#include "C:\Users\kakan\OneDrive\Documents\Trie_DS\trie\Code\Trie_DS.cpp"
+#include "../code/Trie_DS.cpp"
 #include <cassert>
 
 int main() {
