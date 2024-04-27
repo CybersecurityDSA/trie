@@ -51,6 +51,12 @@ A trie, also called a prefix tree or radix tree, is a tree-like data structure t
  -The traversal progresses until either the key is found or a character is not present in the trie.In the worst case,this traversal extends to the length of the key,resulting in a time complexity of O(n),where n is the length of the key being searched.
    
 </p>
+<img width="500" height="100" alt="image" src="https://github.com/CybersecurityDSA/trie/assets/164031015/7a141570-1a8f-4e77-8bba-1df6470bbf84">
+<p>
+   In the above time complexity table 'n' and 'm' represents the size of the string and the number of strings that are stored in the trie.
+</p>
+
+
 
 
 
