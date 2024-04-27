@@ -90,6 +90,19 @@ class Trie
         return searchUtil(root, word);
     }
 };
+ bool deleteUtil(Trie*root,string word,int depth)
+    {
+         if (depth == word.length())
+         {
+            if(root->isTerminal)
+              root->isTerminal=false;
+         }
+
+
+    }
+
+
+
 string LowerToUppercasestring(string WordToInsert)
 {
     string wordinCaps;
