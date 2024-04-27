@@ -106,6 +106,21 @@ class Trie
                 return true;
            }
 
+        int index = word[depth] -'A';
+
+
+        if(root->children[index]==NULL)
+            return false;
+
+        bool shouldDeleteCurrentNode = deleteUtil(root->children[index],word,depth+1);
+
+        if(shouldDeleteCurrentNode)
+        {
+            delete root->children[index];
+            root->children[index]=NULL;
+        }
+
+        
 
     }
 
