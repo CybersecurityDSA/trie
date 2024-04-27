@@ -96,7 +96,15 @@ class Trie
          {
             if(root->isTerminal)
               root->isTerminal=false;
-         }
+           
+             for(int i=0;i<26;i++)
+               {
+                   if (root->children[i] != NULL)
+                       return false;
+               }
+             
+                return true;
+           }
 
 
     }
