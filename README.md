@@ -38,7 +38,12 @@ A trie, also called a prefix tree or radix tree, is a tree-like data structure t
    -In the worst-case scenario,each character requires traversing a new edge in the trie.So,the time complexity for insertion is O(n),where n is the length of the key. 
              
 </p>
-
+<h3>Analysis for Search:</h3>
+<p>
+  -Deletion in a trie involves traversing down the trie based on the characters of the key to be deleted,similar to insertion.<br>
+  -In the worst case,this traversal extends to the length of the key,resulting in a time complexity of O(n),where n is the length of the key.
+   
+</p>
 
 
 
