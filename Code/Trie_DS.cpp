@@ -117,12 +117,26 @@ class Trie
         if(shouldDeleteCurrentNode)
         {
             delete root->children[index];
-            root->children[index]=NULL;
+            root->children[index] = NULL;
         }
 
-        
+        for(int i=0;i<26;i++)
+            {
+                if(root->chidren[i] != NULL)
+                    return false;
+            }
+
+        if (!root->isTerminal)
+            return true;
+
+        return false;
 
     }
+
+void deleteWord(string word)
+{
+    delete(root,word,0);
+}
 
 
 
