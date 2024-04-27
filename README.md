@@ -34,7 +34,7 @@ A trie, also called a prefix tree or radix tree, is a tree-like data structure t
 
 <h3>Analysis for Inertion:</h3>
 <p>
-  - When inserting a key into a trie,the time complexity depends on the length of the key.Let n be the number of characters in the key to be inserted.
+  - When inserting a key into a trie,the time complexity depends on the length of the key.Let n be the number of characters in the key to be inserted.<br>
    -In the worst-case scenario,each character requires traversing a new edge in the trie.So,the time complexity for insertion is O(n),where n is the length of the key. 
              
 </p>
