@@ -18,7 +18,7 @@ int main() {
     return 0;
 }
 
-/*#define CATCH_CONFIG_MAIN
+#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "Trie_DS.cpp" 
 
@@ -42,5 +42,5 @@ TEST_CASE("Trie Insertion and Search", "[Trie]") {
     trie.insertWord("Cyber");
     REQUIRE(trie.searchWord("Cyber") == true);
     REQUIRE(trie.searchWord("Cyber") == true);
-}*/
+}
 
