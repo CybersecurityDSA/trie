@@ -2,12 +2,12 @@
 
 In this project we are going to Implement TRIE DATA STRUCTURE using classes in C++.
 <br>
-**<h1>Table Of Contents:</h1>
-    **Insertion
-    <br>
-    **Deletion
-    <br>
-    **Search Function
+<h1>Table Of Contents:</h1>
+    <ul style="list-style-type: circle">
+        <li>Insertion</li>
+        <li>Deletion</li>
+        <li>Search Function</li>
+    </ul>
 
 <h1>Definiton of TRIE DATA STRUCTURE</h1>
 <p>
@@ -18,17 +18,14 @@ A trie, also called a prefix tree or radix tree, is a tree-like data structure t
 <br>
 <h2>Applications of TRIE DATA STRUCTURE:</h2>
 <p>
-    ** Sorting Dictionaries
-    <br>
-    ** Auto Complete Features While Typing
-    <br>
-    ** Store Words in Dictionary
-    <br>
-    ** Spell Checking
-    <br>
-    ** IP Address Lookup
-    <br>
-    ** Phone Number Searching
+    <ul style="list-style-type: circle">
+        <li>Sorting Dictionaries</li>
+        <li>Auto Complete Features While Typing</li>
+        <li>Store Words in Dictionary</li>
+        <li>Spell Checking</li>
+        <li>IP Address Lookup</li>
+        <li>Phone Number Searching</li>
+    </ul>
 </p>
 <h2>Time Complexity Analysis of Tries</h2>
 
