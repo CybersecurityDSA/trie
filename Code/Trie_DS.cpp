@@ -169,8 +169,7 @@ int main()
     cout << "Enter Word To Search" << endl;
     cin >> WordToSearch;
     WordToSearch = LowerToUppercasestring(WordToSearch);
-  
-    
+
 
     if (t -> searchWord(WordToSearch))
     {
@@ -180,6 +179,21 @@ int main()
     else
     {
         cout << "The Word is Not Present" << endl;
+    }
+
+    
+    string WordToDelete;
+    cout << "Enter Word To Delete"<<endl;
+    cin >> WordToDelete;
+    WordToDelete = LowerToUppercasestring(WordToDelete);
+
+    if (t -> deleteWord(WordToDelete))
+    {
+        cout << "Word Deleted" <<endl;
+    }
+    else
+    {
+        cout << "Error:Word Not Deleted" <<endl;
     }
 
     return 0;
