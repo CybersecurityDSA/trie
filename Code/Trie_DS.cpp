@@ -27,8 +27,8 @@ public:
 // Trie Class Defined
 class Trie
 {
-    public:
-        TrieNode *root;
+public:
+    TrieNode *root;
     Trie()
     {
         root = new TrieNode('\0');
@@ -89,8 +89,8 @@ class Trie
     {
         return searchUtil(root, word);
     }
-};
- bool deleteUtil(Trie*root,string word,int depth)
+
+ bool deleteUtil(TrieNode*root,string word,int depth)
     {
          if (depth == word.length())
          {
@@ -122,7 +122,7 @@ class Trie
 
         for(int i=0;i<26;i++)
             {
-                if(root->chidren[i] != NULL)
+                if(root->children[i] != NULL)
                     return false;
             }
 
@@ -133,11 +133,12 @@ class Trie
 
     }
 
-void deleteWord(string word)
-{
-    delete(root,word,0);
-}
+    bool deleteWord(string word)
+    {
+        return deleteUtil(root,word,0);
+    }
 
+};
 
 
 string LowerToUppercasestring(string WordToInsert)
@@ -152,6 +153,7 @@ string LowerToUppercasestring(string WordToInsert)
     }
     return wordinCaps;
 }
+
 // Main function
 int main()
 {
