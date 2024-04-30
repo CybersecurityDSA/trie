@@ -158,45 +158,57 @@ string LowerToUppercasestring(string WordToInsert)
 int main()
 {
     Trie *t = new Trie(); // Object Created
-
-    string WordToInsert;
-    cout << "Enter Word To Insert" << endl;
-    cin >> WordToInsert;
-
-    WordToInsert = LowerToUppercasestring(WordToInsert);
-
-    t -> insertWord(WordToInsert);
-    
-    string WordToSearch;
-    cout << "Enter Word To Search" << endl;
-    cin >> WordToSearch;
-    WordToSearch = LowerToUppercasestring(WordToSearch);
-
-
-    if (t -> searchWord(WordToSearch))
+    int choice;
+    string word;
+    do 
     {
-        cout << "The Word is Present" << endl;
-    }
+        cout << "\nMenu:\n";
+        cout << "1. Insert Word\n";
+        cout << "2. Search Word\n";
+        cout << "3. Delete Word\n";
+        cout << "4. Exit\n";
+        cout << "Enter your Choice: ";
+        cin >> choice;
 
-    else
-    {
-        cout << "The Word is Not Present" << endl;
-    }
-
-    
-    string WordToDelete;
-    cout << "Enter Word To Delete"<<endl;
-    cin >> WordToDelete;
-    WordToDelete = LowerToUppercasestring(WordToDelete);
-
-    if (t -> deleteWord(WordToDelete))
-    {
-        cout << "Word Deleted" <<endl;
-    }
-    else
-    {
-        cout << "Error:Word Not Deleted" <<endl;
-    }
+        switch (choice)
+        {
+            case 1:
+                cout << "Enter Word To Insert: ";
+                cin >> word;
+                word = LowerToUppercasestring(word);
+                t->insertWord(word);
+                break;
+            case 2:
+                cout << "Enter Word To Search: ";
+                cin >> word;
+                word = LowerToUppercasestring(word);
+                if (t->searchWord(word)) {
+                    cout << "The Word is Present\n";
+                }   
+                else 
+                {
+                    cout << "The Word is Not Present\n";
+                }
+                break;
+            case 3:
+                cout << "Enter Word To Delete: ";
+                cin >> word;
+                word = LowerToUppercasestring(word);
+                if (t->deleteWord(word)) {
+                    cout << "Word Deleted\n";
+                }
+                else
+                {
+                    cout << "Error: Word Not Deleted\n";
+                }
+                break;
+            case 4:
+                cout << "Exiting Program...\n";
+                break;
+            default:
+            cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+        }
+    } while (choice != 4);
 
     return 0;
-}
+}   
