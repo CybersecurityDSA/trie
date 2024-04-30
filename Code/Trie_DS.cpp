@@ -93,18 +93,18 @@ public:
  bool deleteUtil(TrieNode*root,string word,int depth)
     {
          if (depth == word.length())
-         {
-            if(root->isTerminal)
-              root->isTerminal=false;
+        {
+            if(!root->isTerminal)
+                return false;
+            root->isTerminal = false;
            
-             for(int i=0;i<26;i++)
-               {
-                   if (root->children[i] != NULL)
-                       return false;
-               }
-             
-                return true;
-           }
+            for(int i=0;i<26;i++)
+            {
+                if (root->children[i] != NULL)
+                    return false;
+            }
+            return true;
+        }
 
         int index = word[depth] -'A';
 
