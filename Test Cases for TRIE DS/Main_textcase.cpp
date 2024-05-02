@@ -12,7 +12,7 @@ int main() {
     assert(t.searchWord("WORLD") == true);
     assert(t.searchWord("APPLE") == true);
 
-    assert(t.searchWord("FOOBAR") == false)
+    assert(t.searchWord("FOOBAR") == false);
 
 // Test insertion and search
     t.insertWord("hello");
