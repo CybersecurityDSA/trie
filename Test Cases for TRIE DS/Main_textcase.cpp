@@ -12,35 +12,61 @@ int main() {
     assert(t.searchWord("WORLD") == true);
     assert(t.searchWord("APPLE") == true);
 
-    assert(t.searchWord("FOOBAR") == false);
+    assert(t.searchWord("FOOBAR") == false)
 
+// Test insertion and search
+    t.insertWord("hello");
+    t.insertWord("CYBER1234");
+    t.insertWord("268trie");
+    t.insertWord("HeLLo");
+    t.insertWord("@#$%^");
+    t.insertWord("!DSA");
+    t.insertWord("crypto$$");
+    t.insertWord("A");
+    t.insertWord("pneumonoultramicroscopicsilicovolcanoconiosis");
+    t.insertWord("HeLLo1234#");
+  
+
+    assert(t.searchWord("hello") == true);
+    assert(t.searchWord("CYBER1234") == true);
+    assert(t.searchWord("268trie") == true);
+    assert(t.searchWord("HeLLo") == true);
+    assert(t.searchWord("@#$%^") == true);
+    assert(t.searchWord("!DSA") == true);
+    assert(t.searchWord("crypto$$") == true);
+    assert(t.searchWord("A") == true);
+    assert(t.searchWord("pneumonoultramicroscopicsilicovolcanoconiosis") == true);
+    assert(t.searchWord("HeLLo1234#") == true);
+    assert(t.searchWord("FoodIsImportant!!") == false);
+
+
+// Test deletion
+
+    assert(t.deleteWord("hello") == true);
+    assert(t.deleteWord("@#$%^") == true);
+    assert(t.deleteWord("!DSA") == true);
+    assert(t.deleteWord("dsa!@") == false);
+
+
+
+   // Test edge case
+    assert(t.searchWord("Madness") == false);
+    assert(t.deleteWord("madNESS") == false);
+
+
+// Test case sensitivity
+
+    
+    t.insertWord("hello");
+    t.insertWord("WORLD");
+    t.insertWord("HeLLo");
+
+    assert(trie.searchWord("hello") == true);
+    assert(trie.searchWord("HeLLo") == true);
+    assert(trie.searchWord("WORLD") == true);
 
     return 0;
 }
 
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
-#include "Trie_DS.cpp" 
 
-TEST_CASE("Trie Insertion and Search", "[Trie]") {
-    Trie trie;
-
-    // Test insertion and search for a word
-    trie.insertWord("hello");
-    REQUIRE(trie.searchWord("hello") == true);
-    REQUIRE(trie.searchWord("world") == false);
-
-    // Test insertion and search for another word
-    trie.insertWord("world");
-    REQUIRE(trie.searchWord("world") == true);
-    REQUIRE(trie.searchWord("hello") == true); 
-
-    // Test search for a non-existing word
-    REQUIRE(trie.searchWord("Cyber") == false);
-
-    // Test insertion and search for words with mixed case
-    trie.insertWord("Cyber");
-    REQUIRE(trie.searchWord("Cyber") == true);
-    REQUIRE(trie.searchWord("Cyber") == true);
-}
 
