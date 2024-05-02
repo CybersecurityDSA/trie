@@ -136,7 +136,7 @@ int main()
         cout << "2. Search Word\n";
         cout << "3. Delete Word\n";
         cout << "4. Exit\n";
-        cout  << "Enter your Choice: ";
+        cout << "Enter your Choice: ";
         cin >> choice;
 
         switch (choice)
