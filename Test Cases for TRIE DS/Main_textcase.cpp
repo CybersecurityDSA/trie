@@ -61,9 +61,9 @@ int main() {
     t.insertWord("WORLD");
     t.insertWord("HeLLo");
 
-    assert(trie.searchWord("hello") == true);
-    assert(trie.searchWord("HeLLo") == true);
-    assert(trie.searchWord("WORLD") == true);
+    assert(t.searchWord("hello") == true);
+    assert(t.searchWord("HeLLo") == true);
+    assert(t.searchWord("WORLD") == true);
 
     return 0;
 }
