@@ -1,4 +1,4 @@
-#include "../code/Trie_DS.cpp"
+#include "Trie_DS.h"
 #include <cassert>
 
 int main() {
@@ -14,7 +14,7 @@ int main() {
 
     assert(t.searchWord("FOOBAR") == false);
 
-// Test insertion and search
+    // Test insertion and search
     t.insertWord("hello");
     t.insertWord("CYBER1234");
     t.insertWord("268trie");
@@ -26,7 +26,6 @@ int main() {
     t.insertWord("pneumonoultramicroscopicsilicovolcanoconiosis");
     t.insertWord("HeLLo1234#");
   
-
     assert(t.searchWord("hello") == true);
     assert(t.searchWord("CYBER1234") == true);
     assert(t.searchWord("268trie") == true);
@@ -39,24 +38,17 @@ int main() {
     assert(t.searchWord("HeLLo1234#") == true);
     assert(t.searchWord("FoodIsImportant!!") == false);
 
-
-// Test deletion
-
+    // Test deletion
     assert(t.deleteWord("hello") == true);
     assert(t.deleteWord("@#$%^") == true);
     assert(t.deleteWord("!DSA") == true);
     assert(t.deleteWord("dsa!@") == false);
 
-
-
-   // Test edge case
+    // Test edge case
     assert(t.searchWord("Madness") == false);
     assert(t.deleteWord("madNESS") == false);
 
-
-// Test case sensitivity
-
-    
+    // Test case sensitivity
     t.insertWord("hello");
     t.insertWord("WORLD");
     t.insertWord("HeLLo");
