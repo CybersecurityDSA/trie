@@ -26,6 +26,7 @@ A trie, also called a prefix tree or radix tree, is a tree-like data structure t
         <li>IP Address Lookup</li>
         <li>Phone Number Searching</li>
     </ul>
+    <p>In this Project we are Going to Implement Phone Directory by using Trie Data Structure</p>
 </p>
 <h2>Time Complexity Analysis of Tries</h2>
 
