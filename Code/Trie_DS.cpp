@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <limits>
 using namespace std;
 
 // Node Created
@@ -139,6 +140,14 @@ int main()
         cout << "Enter your Choice: ";
         cin >> choice;
 
+         if (!(cin >> choice))
+        {
+            // Clear error flag and discard invalid input
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number.\n";
+            continue; // Skip the rest of the loop and start over
+        }
         switch (choice)
         {
             case 1:
@@ -167,15 +176,17 @@ int main()
                 }
                 else
                 {
-                    cout << "Error: Wprd Not Deleted\n";
+                    cout << "Error: Word Not Deleted\n";
                 }
                 break;
             case 4:
                 cout  << "Exiting Program...\n";
+            
             default:
             cout  << "Invalid Choice\n";
         }
     } while (choice != 4);
+        
 
     return 0;
 }
