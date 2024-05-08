@@ -21,13 +21,29 @@ A trie, also called a prefix tree or radix tree, is a tree-like data structure t
     <ul style="list-style-type: circle">
         <li>Sorting Dictionaries</li>
         <li>Auto Complete Features While Typing</li>
-        <li>Store Words in Dictionary</li>
-        <li>Spell Checking</li>
-        <li>IP Address Lookup</li>
         <li>Phone Number Searching</li>
     </ul>
-    <p>In this Project we are Going to Implement Phone Directory by using Trie Data Structure</p>
 </p>
+<h3><b>Phone Directory Application:</b></h3>
+<p>In this Project we are Going to Implement Phone Directory by using Trie Data Structure</p>
+<P>The phone directory application demonstrates the practical application of the Trie data structure. It allows users to:
+    <ul style="list-style-type: circle">
+        <li><b>Add Contacts:</b> User can add Contacts along with their Phone Numbers to the directory.</li>
+        <li><b>Search Directory:</b>Users can search the entire directory.</li>
+    </ul>
+</P>
+<h3>How it Works ?</h3>
+<p>The Trie data structure is implemented using a TrieNode class and a Trie class in C++. Each node in the Trie represents a single character. The TrieNode class contains an array of pointers to child nodes, representing possible next characters in the string. The Trie class provides methods for inserting words into the Trie and retrieving suggestions based on a given prefix.</p>
+
+# Usage:
+<p>To use the phone directory application:
+
+    Compile the source code (main.cpp) using a C++ compiler.
+    Run the compiled executable.
+    Follow the on-screen instructions to add contacts or search the directory.
+<br>
+</p>
+
 <h2>Time Complexity Analysis of Tries</h2>
 
 <h3>Analysis for Inertion:</h3>
