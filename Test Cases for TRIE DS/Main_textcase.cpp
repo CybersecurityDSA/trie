@@ -1,4 +1,4 @@
-#include "Trie_DS.h"
+#include "../Code/Trie_DS.cpp"
 #include <cassert>
 
 int main() {
