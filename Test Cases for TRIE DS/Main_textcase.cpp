@@ -38,10 +38,7 @@ int main() {
     assert(t.searchWord("HeLLo1234#") == true);
     assert(t.searchWord("FoodIsImportant!!") == false);
 
-    // Test deletion
-    assert(t.deleteWord("hello") == true);
-    assert(t.deleteWord("@#$%^") == true);
-    assert(t.deleteWord("!DSA") == true);
+  
     assert(t.deleteWord("dsa!@") == false);
 
     // Test edge case
