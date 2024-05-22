@@ -4,189 +4,176 @@
 #include <limits>
 using namespace std;
 
-// Node Created
-class TrieNode
-{
-public:
-    char data;
-    TrieNode *children[128];
-    bool isTerminal;
-    TrieNode(char ch)
-    {
-        data = ch;
-        for (int i = 0;i < 128;i++)
+const int ALPHABET_SIZE = 26;
+
+struct TrieNode{
+    TrieNode* children[ALPHABET_SIZE];
+    bool isEndOfWord;
+
+    TrieNode(){
+        isEndOfWord = false;
+        for (int i = 0; i < ALPHABET_SIZE; ++i)
         {
-            children[i] = NULL;
+            children[i] = nullptr;
         }
-        isTerminal = false;
     }
 };
-// Trie Class Defined
+
 class Trie
 {
-    public:
-        TrieNode *root;
-        Trie()
-        {
-            root = new TrieNode('\0');
-        }
-        void insertUtil(TrieNode *root,string word)
-        {
-            if (word.length() == 0)
-            {
-                root -> isTerminal = true;
-                return;
-            }
-            int index = word[0];
-            TrieNode *child;
-            if (root -> children[index] != NULL)
-            {
-                child = root -> children[index];
-            }
-            else
-            {
-                child = new TrieNode(word[0]);
-                root -> children[index] = child;
-            }
-            insertUtil(child, word.substr(1));
-        }
-        void insertWord(string word)
-        {
-            insertUtil(root,word);
-        }
-        bool searchUtil(TrieNode *root, string word)
-        {
-            if (word.length() == 0)
-            {
-                return root -> isTerminal;
-            }
-            int index = word[0];
-            TrieNode *child;
+public:
+    TrieNode *root;
 
-            if (root -> children[index] != NULL)
-            {
-                child = root -> children[index];
+    Trie() : root(nullptr) {}
+
+    void insertWord(const string &word)
+    {
+        TrieNode **curr = &root;
+        for (int i = 0; i < word.length(); i++)
+        {
+            std::cout << *curr << " ";
+            if(*curr == nullptr){
+                *curr = new TrieNode();
             }
-            else
-            {
+            int index = word[i] - 'a';
+            curr = &((*curr)->children[index]);
+        }
+        if(*curr == nullptr){
+            std::cout << *curr << " \n";
+            *curr = new TrieNode();
+        }
+        (*curr)->isEndOfWord = true;
+    }
+
+    bool searchWord(const string &word)
+    {
+        TrieNode *curr = root;
+        for (char c : word)
+        {
+            int index = c - 'a';
+            if (curr == nullptr){
                 return false;
             }
-            return searchUtil(child, word.substr(1));
+            curr = curr->children[index];
         }
-        bool searchWord(string word)
-        {
-            return searchUtil(root, word);
-        }
-        bool deleteUtil(TrieNode *root, string word, int depth)
-        {
-            if (depth == word.length())
-            { 
-                if (!root -> isTerminal)
-                    return false;
-                root -> isTerminal = false;
+        return curr != nullptr && curr->isEndOfWord;
+    }
 
-                for (int i = 0;i < 128;i++)
-                {
-                    if (root -> children[i] != NULL)
-                        return false;
+    bool DeleteWordUtil(TrieNode*& current, const string &word, int depth)
+    {
+        if(depth >= word.length() && current->isEndOfWord){
+            current->isEndOfWord = false;
+            for(int i = 0; i < ALPHABET_SIZE; i++){
+                if (current->children[i] != nullptr){
+                    return true;
                 }
-                return true;
             }
-            int index = word[depth];
-
-            if (root -> children[index] == NULL)
-                return false;
-
-            bool shouldDeleteCurrentNode = deleteUtil(root -> children[index], word, depth + 1);
-
-            if (shouldDeleteCurrentNode)
-            {
-                delete root -> children[index];
-                root -> children[index] = NULL;
-            }
-
-            for (int i = 0;i < 128;i++)
-            {
-
-                if (root -> children[i] != NULL)
-                    return false;
-            }
-            if (!root -> isTerminal)
-            
-                return true;
+            delete current;
+            current = nullptr;
+            return true;
+        }
+        if(depth >= word.length()) {
             return false;
         }
 
-        bool deleteWord(string word)
-        {
-            return deleteUtil(root, word, 0);
+        if (current == nullptr){
+            return false;
         }
-};
 
-// Main Function
+        int index = word[depth] - 'a';
+
+        if(DeleteWordUtil(current->children[index], word, depth + 1)){
+
+            if(current->isEndOfWord){
+                return true;
+            }
+
+            for(int i = 0; i < ALPHABET_SIZE; i++){
+                if (current->children[i] != nullptr){
+                    return true;
+                }
+            }
+            delete current;
+            current = nullptr;
+            return true;
+        }
+        return false;
+    }
+
+    bool deleteWord(const string &word){
+        return DeleteWordUtil(root, word, 0);
+    }
+
+    void free_handler(TrieNode* current){
+        if(current == nullptr){
+            return;
+        }
+        for(int i=0; i < ALPHABET_SIZE; i++){
+            free_handler(current->children[i]);
+        }
+        delete current;
+    }
+
+    ~Trie(){
+        free_handler(root);
+    }
+};
 
 int main()
 {
-    Trie *t = new Trie(); // Object Created
-    int choice;
+    Trie trie = Trie();
+    int choice = 0;
     string word;
-    do
-    {
+    while(1){
         cout << "\nMenu: \n";
         cout << "1. Insert Word\n";
         cout << "2. Search Word\n";
         cout << "3. Delete Word\n";
         cout << "4. Exit\n";
         cout << "Enter your Choice: ";
-        cin >> choice;
-
-         if (!(cin >> choice))
+        if (!(cin >> choice))
         {
-            // Clear error flag and discard invalid input
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Invalid input. Please enter a number.\n";
-            continue; // Skip the rest of the loop and start over
+            continue;
         }
         switch (choice)
         {
-            case 1:
-                cout << "Enter Word To Insert: ";
-                cin >> word;
-                t -> insertWord(word);
-                break;
-            case 2:
-                cout  << "Enter Word To Search: ";
-                cin >> word;
-                if (t -> searchWord(word))
-                {
-                    cout  << "The Word is Present\n";
-                }
-                else
-                {
-                    cout  << "The Word is Not Present\n";
-                }
-                break;
-            case 3:
-                cout << "Enter Word To Delete: ";
-                cin >> word;
-                if (t -> deleteWord(word))
-                {
-                    cout << "Word Deleted\n";
-                }
-                else
-                {
-                    cout << "Error: Word Not Deleted\n";
-                }
-                break;
-            case 4:
-                cout  << "Exiting Program...\n";
-            
-            default:
-            cout  << "Invalid Choice\n";
+        case 1:
+            cout << "Enter Word To Insert: ";
+            cin >> word;
+            trie.insertWord(word);
+            break;
+        case 2:
+            cout << "Enter Word To Search: ";
+            cin >> word;
+            if (trie.searchWord(word))
+            {
+                cout << "The Word is Present\n";
+            }
+            else
+            {
+                cout << "The Word is Not Present\n";
+            }
+            break;
+        case 3:
+            cout << "Enter Word To Delete: ";
+            cin >> word;
+            if (trie.deleteWord(word))
+            {
+                cout << "Word Deleted\n";
+            }
+            else
+            {
+                cout << "Error: Word Not Deleted\n";
+            }
+            break;
+        case 4:
+            cout << "Exiting Program...\n";
+            return 0;
+        default:
+            cout << "Invalid Choice\n";
         }
-    } while (choice != 4);
-        
-
-    return 0;
+    }
 }

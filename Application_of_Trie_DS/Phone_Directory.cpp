@@ -1,189 +1,186 @@
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
+#include <cstdlib>
 using namespace std;
 
-// Node Created
-class TrieNode
-{
-public:
-    char data;
-    TrieNode *children[128];
-    bool isTerminal;
-    string phoneNumber;
-    TrieNode(char ch)
-    {
-        data = ch;
-        for (int i = 0; i < 128; i++)
-        {
+struct TrieNode {
+    TrieNode* children[10];
+    string name;
+
+    TrieNode() {
+        name = "";
+        for (int i = 0; i < 10; ++i) {
             children[i] = nullptr;
         }
-        isTerminal = false;
     }
 };
 
-// Trie Class Defined
-class Trie
-{
+class Trie {
+private:
+    void free_handler(TrieNode* current){
+        if(current == nullptr){
+            return;
+        }
+        for(int i=0; i < 10; i++){
+            free_handler(current->children[i]);
+        }
+        delete current;
+    }
 public:
     TrieNode *root;
-    Trie()
+
+    Trie() : root(nullptr) {}
+
+    void insert_Contact(const string &name, const string &word)
     {
-        root = new TrieNode('\0');
-    }
-    void insertUtil(TrieNode *root, string word, string phoneNumber)
-    {
-        if (word.length() == 0)
+        TrieNode **curr = &root;
+        for (int i = 0; i < word.length(); i++)
         {
-            root->isTerminal = true;
-            root->phoneNumber = phoneNumber;
+            std::cout << *curr << " ";
+            if(*curr == nullptr){
+                *curr = new TrieNode();
+            }
+            int index = word[i] - '0';
+            curr = &((*curr)->children[index]);
+        }
+        if(*curr == nullptr){
+            std::cout << *curr << " \n";
+            *curr = new TrieNode();
+        }
+        (*curr)->name = name;
+    }
+
+    void print_handler(TrieNode* current, string phone){
+        if(current == nullptr){
             return;
         }
-        int index = word[0];
-        TrieNode *child;
-        if (root->children[index] != nullptr)
-        {
-            child = root->children[index];
+
+        if(current->name != "") {
+            std::cout << current->name << ": " << phone << "\n";
         }
-        else
-        {
-            child = new TrieNode(word[0]);
-            root->children[index] = child;
+
+        for (int i = 0; i < 10; i++){
+            phone.push_back(i + '0');
+            print_handler(current->children[i], phone);
+            phone.pop_back();
         }
-        insertUtil(child, word.substr(1), phoneNumber);
-    }
-    void insertWord(string word, string phoneNumber)
-    {
-        insertUtil(root, word, phoneNumber);
     }
 
-    void printSuggestions(TrieNode *curr, vector<pair<string, string>> &temp, string prefix)
+    void print_trie(){
+        print_handler(root, "");
+    }
+
+    string searchname(const string &word)
     {
-        if (curr->isTerminal)
+        TrieNode *curr = root;
+        for (char c : word)
         {
-            temp.push_back(make_pair(prefix, curr -> phoneNumber));
-        }
-        for (char ch = 'a'; ch <= 'z'; ch++)
-        {
-            TrieNode *next = curr->children[ch];
-            if (next != nullptr)
-            {
-                prefix.push_back(ch);
-                printSuggestions(next, temp, prefix);
-                prefix.pop_back();
+            int index = c - '0';
+            if (curr == nullptr){
+                return "";
             }
+            curr = curr->children[index];
         }
+        if(curr==nullptr || curr->name == ""){
+            return "";
+        }
+        return curr->name;
     }
 
-    vector<vector<pair<string, string>>> getSuggestions(string str)
+    bool DeleteWordUtil(TrieNode*& current, const string &word, int depth)
     {
-        TrieNode *prev = root;
-        vector<vector<pair<string, string>>> output;
-        string prefix = "";
-        for (int i = 0; i < str.length(); i++)
-        {
-            char lastch = str[i];
-            prefix.push_back(lastch);
-            //check for lastch
-            TrieNode *curr = prev->children[lastch];
-            //if not found
-            if (curr == nullptr)
-            {
-                break;
+        if (current == nullptr)
+            return false;
+
+        if (depth == word.length()) {
+            if (!current->name.empty()) {
+                current->name = "";
+                for (int i = 0; i < 10; ++i) {
+                    if (current->children[i] != nullptr)
+                        return false;
+                }
+                delete current;
+                current = nullptr;
+                return true;
             }
-            //if found
-            vector<pair<string, string>> temp;
-            printSuggestions(curr, temp, prefix);
-            output.push_back(temp);
-            temp.clear();
-            prev = curr;
+            return false;
         }
-        return output;
-    }
 
-    ~Trie()
-    {
-        deleteTrie(root);
-    }
-
-private:
-    void deleteTrie(TrieNode *node)
-    {
-        if (node == nullptr)
-            return;
-        for (int i = 0; i < 128; i++)
-        {
-            if (node->children[i] != nullptr)
-            {
-                deleteTrie(node->children[i]);
+        int index = word[depth] - '0';
+        if (DeleteWordUtil(current->children[index], word, depth + 1)) {
+            for (int i = 0; i < 10; ++i) {
+                if (current->children[i] != nullptr)
+                    return false;
             }
+            delete current;
+            current = nullptr;
+            return true;
         }
-        delete node;
+        return false;
+    }
+
+
+    bool deleteWord(const string &word){
+        return DeleteWordUtil(root, word, 0);
+    }
+
+    ~Trie(){
+        free_handler(root);
     }
 };
 
-vector<vector<pair<string, string>>> phoneDirectory(vector<pair<string, string>> &contactList, string &queryStr)
-{
-    //creation of trie
-    Trie *t = new Trie();
-    //insert all contact in Trie
-    for (int i = 0; i < contactList.size(); i++)
-    {
-        string str = contactList[i].first;
-        string phoneNumber = contactList[i].second;
-        t->insertWord(str, phoneNumber);
-    }
-    //return ans
-    return t->getSuggestions(queryStr);
-}
+int main() {
+    Trie t;
+    int choice;
 
-int main()
-{
-    vector<pair<string, string>> contactList;
-    string queryStr;
-
-    char choice;
-    do
-    {
-        cout << "\nMenu:\n1. Add Contact\n2. Search Directory\n3. Exit\nEnter your choice: ";
+    while(1){
+        cout << "\nMenu:\n1. Add Contact\n2. Search Directory\n3. Delete Contact\n4. Exit\nEnter your choice: ";
         cin >> choice;
-        cin.ignore(); // Ignore the newline character from previous input
+        cin.ignore();
 
-        switch (choice)
-        {
-        case '1':
-        {
-            string contact, phoneNumber;
-            cout << "Enter contact name to add: ";
-            getline(cin, contact);
-            cout << "Enter contact number: ";
-            getline(cin, phoneNumber);
-            contactList.push_back(make_pair(contact, phoneNumber));
-            cout << "Contact added successfully!" << endl;
-            break;
-        }
-        case '2':
-        {
-            cout << "Enter query string to search: ";
-            getline(cin, queryStr);
-            vector<vector<pair<string, string>>> suggestions = phoneDirectory(contactList, queryStr);
-            cout << "Suggestions:" << endl;
-            for (const auto &group : suggestions)
-            {
-                for (const auto &contact : group)
-                {
-                    cout << "Name: " << contact.first << ", Phone Number: " << contact.second << endl;
-                }
+        switch (choice) {
+            case 1: {
+                string contact, phoneNumber;
+                cout << "Enter contact name to add: ";
+                cin>> contact;
+                cout << "Enter contact number: ";
+                cin >> phoneNumber;
+                t.insert_Contact(contact, phoneNumber);
+                cout << "Contact added successfully!\n";
+                break;
             }
-            break;
+            case 2: {
+                string phone;
+                cout << "Enter query string to search: ";
+                cin >> phone;
+                string temp = t.searchname(phone);
+                if(temp != ""){
+                    std::cout << "Found contact: " << temp << "\n";
+                } else {
+                    std::cout << "Contact not found!\n";
+                }
+                break;
+            }
+            case 3:{
+                string phone;
+                cout << "Enter the phone number to delete: ";
+                cin >> phone;
+                if(t.deleteWord(phone)){
+                    cout << "Successfully Deleted Contact!\n";
+                } else {
+                    cout << "Contact not deleted!\n";
+                }
+                break;
+            }
+            case 4:
+                cout << "Exiting program.\n";
+                return 0;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+                break;
         }
-        case '3':
-            cout << "Exiting program." << endl;
-            break;
-        default:
-            cout << "Invalid choice. Please try again." << endl;
-        }
-    } while (choice != '3');
+    }
 
     return 0;
 }
